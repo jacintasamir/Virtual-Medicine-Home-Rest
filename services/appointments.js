@@ -1,3 +1,3 @@
 const { ObjectId } = require('mongoose').Types;
 
-const ProductModel = require('../models/Appointment');
+const AppointmentModel = require('../models/Appointment');
