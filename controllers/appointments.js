@@ -1,0 +1,1 @@
+const appointmentService = require('../services/appointments');
