@@ -23,3 +23,11 @@ module.exports.deleteAppointment= async (appointmentDetailsId) =>{
         throw new Error('could not remove Appointment.');
     }
 };
+module.exports.sendConfirmationMessage = async () => {
+    try {
+        const confirmationmessage = await AppointmentDetailsModel.find()
+        return confirmationmessage;
+    } catch(err) {
+        throw new Error('Could not send confirmation message');
+    }
+};
