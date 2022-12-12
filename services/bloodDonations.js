@@ -64,7 +64,7 @@ module.exports.removeRecipient = async (recipientID) => {
     }
 };
 
-module.exports.findVolunteer = async () => {
+module.exports.findAllVolunteers = async () => {
     try {
         const volunteers = await VolunteerModel.find()
         return volunteers;
@@ -72,6 +72,31 @@ module.exports.findVolunteer = async () => {
         throw new Error('Could not retrieve volunteers');
     }
 };
+
+module.exports.findAllRecipient = async () => {
+    try {
+        const recipient = await RecipientModel.find()
+        return recipient;
+    } catch(err) {
+        throw new Error('Could not retrieve recipients');
+    }
+};
+
+module.exports.searchVolunteers = async (bloodType) => {
+    try {
+        const volunteer = await VolunteerModel.find({bloodType: bloodType})
+    } catch (err) {
+        throw new Error('Could not find any volunteers.')
+    }
+}
+
+module.exports.searchRecipient = async (bloodType) => {
+    try {
+        const recipient = await RecipientModel.find({bloodType: bloodType})
+    } catch (err) {
+        throw new Error('Could not find any recipients.')
+    }
+}
 
 module.exports.bloodInventory = async () => {
     try {

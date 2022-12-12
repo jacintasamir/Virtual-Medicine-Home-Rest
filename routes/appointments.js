@@ -3,7 +3,7 @@ const { Router } = require('express');
 
 //Importing The Appointments Controller
 const appointmentController= require ('../controllers/appointments');
-const authMiddlewares = require('../middelwares/authorization');
+const authMiddlewares = require('../middlewares/authorization');
 //Creating An Instance of Express Router
 const appointmentRouter= Router();
 
