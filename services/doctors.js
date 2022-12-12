@@ -56,3 +56,12 @@ module.exports.findAllDoctors = async () => {
         throw new Error('Could not insert review.')
     }
  }
+
+ module.exports.findDoctorById = async (doctorId) => {
+    try {
+      const doctor = await DoctorModel.findById(doctorId)
+      return doctor;
+    } catch (err) {
+      throw new Error('Could not find doctor.');
+    }
+  };

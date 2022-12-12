@@ -44,7 +44,8 @@ const DoctorSchema = new Schema({
             prefixItems: [
                 {type: 'Number'}, //rating out of 5*
                 {type: 'String'}, //name
-                {type: 'String'} //comment
+                {type: 'String'}, //comment
+                {type: 'String'} //location of doctor (as address received by external service)
             ],
             items: false
         }
