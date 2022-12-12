@@ -31,10 +31,28 @@ module.exports.removeDoctor = async (doctorId) => {
     }
 };
 
-module.exports.searchDoctors = async () => {
+module.exports.searchDoctors = async (specialization) => {
     try {
-
+        const doctor = await DoctorModel.find({specialization: specialization})
     } catch (err) {
         throw new Error('Could not find any doctors.')
     }
 }
+
+module.exports.findAllDoctors = async () => {
+    try {
+      const doctors = await ProductModel.find();
+      return doctors;
+    } catch (err) {
+      throw new Error('Could not retrieve doctors.');
+    }
+  };
+
+ module.exports.writeFeedback = async (feedback) => {
+    try {
+        const doctor = await DoctorModel.findById(doctorID)
+        doctor.reviews.insert(feedback)
+    } catch (err) {
+        throw new Error('Could not insert review.')
+    }
+ }

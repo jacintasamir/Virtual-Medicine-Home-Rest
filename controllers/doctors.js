@@ -1,18 +1,15 @@
 const doctorsService = require('../services/doctors');
 
-module.exports.getProduct = async (req, res) => { //one product
-    // notice how we extract the productId from the dynamic route that should be /products/:productId
-    const productId = req.params.productId;
+module.exports.filterDoctors = async (req, res) => { 
+    const specialization = req.params.specialization;
     try {
-      const product = await productsService.findProductById(productId);
-      if (!product) {
+      const doctors = await doctorsService.searchDoctors(specialization);
+      if (!doctors) {
         return res.status(404).send({
-          error: 'Product not found.'
+          error: 'No doctors.'
         });
       }
-      return res.send({
-        product: product
-      });
+      return res.send({ doctors });
     } catch (err) {
       res.status(500).send({
         error: err.message
@@ -20,10 +17,10 @@ module.exports.getProduct = async (req, res) => { //one product
     }
   };
 
-  module.exports.getProducts = async (req, res) => { //all products
+  module.exports.getDoctors = async (req, res) => { 
     try {
-      const products = await productsService.findAllProducts();
-      return res.send({ products });
+      const doctors = await doctorsService.findAllDoctors();
+      return res.send({ doctors });
     } catch (err) {
       // this denotes a server error, therefore status code should be 500.
       res.status(500);
@@ -34,16 +31,24 @@ module.exports.getProduct = async (req, res) => { //one product
   };
   
   module.exports.postDoctor = async (req, res) => {
+    const validationErrors = validationResult(req).array();
+    if (validationErrors.length > 0) {
+      const firstError = validationErrors[0];
+      return res.status(422).send({
+        error: firstError.msg
+      });
+    }
+
     const doctorInfo = {
-        name: doctorDetails.name,
-        specialization: doctorDetails.specialization,
+        name: req.body.name,
+        specialization: req.body.specialization,
         schedule: {
-            workdays: doctorDetails.workdays,
-            workhours: doctorDetails.workhours
+            workdays: req.body.workdays,
+            workhours: req.body.workhours
         },
         location: {
-            lat: doctorDetails.lat,
-            lon: doctorDetails.lon
+            lat: req.body.lat,
+            lon: req.body.lon
         }
     }
     try {
@@ -68,6 +73,28 @@ module.exports.getProduct = async (req, res) => { //one product
       });
     } catch (err) {
       return res.status(500).send({
+        error: err.message
+      });
+    }
+  };
+
+  module.exports.giveFeedback = async (req, res) => { 
+    const feedback = {
+      doctorId: req.params.doctorId,
+      rating: req.body.rating,
+      name: req.body.name,
+      comment: req.body.comment
+    }
+    try {
+      const feedback = await doctorsService.writeFeedback(feedback);
+      if (!doctors) {
+        return res.status(404).send({
+          error: 'No doctors.'
+        });
+      }
+      return res.send({ doctors });
+    } catch (err) {
+      res.status(500).send({
         error: err.message
       });
     }

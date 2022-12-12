@@ -39,12 +39,15 @@ const DoctorSchema = new Schema({
     },
     reviews: {
         type: 'Array',
-        prefixItems: [
-            {type: 'Number'}, //rating out of 5*
-            {type: 'String'}, //name
-            {type: 'String'} //comment
-        ],
-        items: false
+        feedback: {
+            type: 'Array',
+            prefixItems: [
+                {type: 'Number'}, //rating out of 5*
+                {type: 'String'}, //name
+                {type: 'String'} //comment
+            ],
+            items: false
+        }
     }
 }) 
 
