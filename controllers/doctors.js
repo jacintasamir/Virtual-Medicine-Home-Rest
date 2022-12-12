@@ -53,7 +53,7 @@ module.exports.filterDoctors = async (req, res) => {
         }
     }
     try {
-      const addedDoctor = await productsService.addNewDoctor(doctorInfo);
+      const addedDoctor = await doctorsService.addNewDoctor(doctorInfo);
       return res.status(201).send({
         msg: 'Doctor added successfully.',
         doctorId: addedDoctor._id

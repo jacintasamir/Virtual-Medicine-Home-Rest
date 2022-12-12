@@ -3,7 +3,7 @@ const { Router } = require('express');
 
 // import our productsController
 const doctorsController = require('../controllers/doctors');
-const authMiddlewares = require('../middelwares/authorization');
+const authMiddlewares = require('../middlewares/authorization');
 
 // create an instance of Express Router.
 const doctorsRouter = Router();
